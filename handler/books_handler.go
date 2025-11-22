@@ -10,14 +10,14 @@ import (
 )
 
 func HandleSearch(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Bateu aqui")
+	fmt.Println("Requisição HandleSearch recebida")
 }
 
 func HandleSearchByAuthor(w http.ResponseWriter, r *http.Request) {
 	authorQuery := r.URL.Query().Get("q")
 
 	if authorQuery == "" {
-		http.Error(w, "Parâmetro 'q' (autor) é obrigatório.", http.StatusBadRequest)
+		http.Error(w, "Faltou dizer quem é o autor (parâmetro 'q')", http.StatusBadRequest)
 		return
 	}
 
@@ -28,7 +28,7 @@ func HandleSearchByAuthor(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(fullURL)
 	if err != nil {
-		http.Error(w, "Erro ao comunicar com a API externa.", http.StatusInternalServerError)
+		http.Error(w, "Erro de comunicação com a API externa", http.StatusInternalServerError)
 		return
 	}
 	defer resp.Body.Close()
